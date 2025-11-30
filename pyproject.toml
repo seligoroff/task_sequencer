@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "task-sequencer"
+version = "0.2.0"
+description = "Sequential task orchestrator with dependency management and progress tracking"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [
+    {name = "Igor Selivanov", email = "seligoroff@gmail.com"}
+]
+keywords = ["task", "orchestrator", "workflow", "dependencies", "progress", "resume"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Distributed Computing",
+]
+
+dependencies = [
+    # Минимальные зависимости - библиотека не требует внешних зависимостей
+]
+
+[project.optional-dependencies]
+mysql = ["pymysql>=1.0.0", "sqlalchemy>=1.4.0"]
+mongodb = ["pymongo>=4.0.0"]
+postgresql = ["psycopg2-binary>=2.9.0", "sqlalchemy>=1.4.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "sphinx>=5.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/seligoroff/task_sequencer"
+Documentation = "https://github.com/seligoroff/task_sequencer"
+Repository = "https://github.com/seligoroff/task_sequencer"
+Issues = "https://github.com/seligoroff/task_sequencer/issues"
+
+[tool.setuptools]
+packages = ["task_sequencer", "task_sequencer.adapters"]
+
+[tool.setuptools.package-data]
+task_sequencer = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["task_sequencer"]
+data_file = "tests/.coverage"
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "tests/htmlcov"
+
+
